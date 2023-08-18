@@ -58,10 +58,20 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.json({message : "successfully"});
-})
+  res.json({ message: "successfully" });
+});
 
-// get events
+// get all events
+app.get("/events", async (req, res) => {
+  try {
+    const events = await pool.query("SELECT * FROM events");
+    res.json(events.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// get user created events
 app.get("/events/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
@@ -76,12 +86,28 @@ app.get("/events/:userId", async (req, res) => {
 });
 
 // get a event
+// app.get("/events/:eventId", async (req, res) => {
+//   const { eventId } = req.params;
+//   try {
+//     const events = await pool.query(
+//       "SELECT * FROM events WHERE event_id = $1",
+//       [eventId]
+//     );
+//     res.json(events.rows);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 // create a event
 
-// update a event
-
 // delete a event
+
+// get applications
+
+// create application
+
+// delete application
 
 app.listen(8000, () => {
   console.log(`Server started successfully at PORT ${PORT}`);
