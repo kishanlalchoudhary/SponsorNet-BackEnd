@@ -156,8 +156,22 @@ app.delete("/events/:eventId", async (req, res) => {
 // get all applications
 app.get("/applications", async (req, res) => {
   try {
-    const events = await pool.query("SELECT * FROM applications");
-    res.json(events.rows);
+    const applications = await pool.query("SELECT * FROM applications");
+    res.json(applications.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// get users all applications
+app.get("/applications/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const applications = await pool.query(
+      "SELECT event_name, event_date, application_status FROM events INNER JOIN applications using(event_id) WHERE sponsor_id = $1",
+      [userId]
+    );
+    res.json(applications.rows);
   } catch (err) {
     console.log(err);
   }
