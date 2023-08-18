@@ -84,8 +84,8 @@ app.get("/events", async (req, res) => {
 });
 
 // get user created events
-app.get("/events/:userId", async (req, res) => {
-  const { userId } = req.params;
+app.get("/events", async (req, res) => {
+  const { userId } = req.query;
   try {
     const events = await pool.query(
       "SELECT * FROM events WHERE user_id = $1;",
@@ -163,13 +163,15 @@ app.get("/applications", async (req, res) => {
   }
 });
 
-// get all user applications
-
-
 // apply for a event
 app.post("/applications", async (req, res) => {
-  const { sponsor_id, event_id, sponsor_name, sponsor_phone, application_status } =
-    req.body;
+  const {
+    sponsor_id,
+    event_id,
+    sponsor_name,
+    sponsor_phone,
+    application_status,
+  } = req.body;
   console.log(
     sponsor_id,
     event_id,
@@ -198,6 +200,18 @@ app.post("/applications", async (req, res) => {
 });
 
 // delete application
+app.delete("/applications/:applicationId", async (req, res) => {
+  const { applicationId } = req.params;
+  try {
+    const deleteApplication = await pool.query(
+      "DELETE FROM applications WHERE application_id = $1",
+      [applicationId]
+    );
+    res.json(deleteApplication);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.listen(8000, () => {
   console.log(`Server started successfully at PORT ${PORT}`);
