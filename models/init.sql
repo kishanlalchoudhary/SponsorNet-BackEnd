@@ -27,6 +27,8 @@ CREATE TABLE events (
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) 
 );
 
+ALTER TABLE events ALTER COLUMN event_date TYPE VARCHAR(255);
+
 INSERT INTO events VALUES
 	('event1', 'user1', 'name1', 'type1', '2023-01-01', 1000, 10000, 'del1'),
 	('event2', 'user1', 'name2', 'type2', '2023-02-02', 2000, 20000, 'del2'),
@@ -48,5 +50,12 @@ CREATE TABLE applications (
     CONSTRAINT fk_sponsor_id FOREIGN KEY (sponsor_id) REFERENCES users(user_id),
     CONSTRAINT fk_event_id FOREIGN KEY (event_id) REFERENCES events(event_id) 
 );
+
+INSERT INTO applications VALUES
+	('app1', 'user2', 'event1', 'sponsorname1', 'sponsorno1', 'pending'),
+	('app2', 'user1', 'event1', 'sponsorname2', 'sponsorno2', 'pending'),
+	('app3', 'user3', 'event1', 'sponsorname3', 'sponsorno3', 'pending'),
+	('app4', 'user3', 'event2', 'sponsorname4', 'sponsorno4', 'pending'),
+	('app5', 'user5', 'event5', 'sponsorname5', 'sponsorno5', 'pending');
 
 SELECT * FROM applications;
