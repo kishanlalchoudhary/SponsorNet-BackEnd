@@ -19,6 +19,7 @@ The backend of this project is built using a robust and efficient tech stack tha
 ## Demo Video
 https://github.com/kishanlalchoudhary/SponsorNet-BackEnd/assets/107745828/56344d7d-9734-46c5-9a95-219a27d0f9d5
 
-## SponsorNet Frontend GitHub Link - https://github.com/AtharvaLitake/SponsorNet-FrontEnd
+## SponsorNet Frontend - <a href="https://github.com/AtharvaLitake/SponsorNet-FrontEnd">GitHub Link</a>
 
-## SponsorNet Deployed Project Link - https://sponsornet.netlify.app/
+## SponsorNet Project - <a href="https://sponsornet.netlify.app/">Deployed Link</a>
+
