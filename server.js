@@ -102,7 +102,7 @@ app.get("/events/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
     const events = await pool.query(
-      "SELECT ev.event_name, ap.sponsor_name, ap.sponsor_phone, ap.application_status, us.user_email FROM events ev INNER JOIN applications ap using(event_id) INNER JOIN users us ON us.user_id = ap.sponsor_id WHERE ev.user_id = $1;",
+      "SELECT ev.event_name, ap.sponsor_name, ap.sponsor_phone, ap.application_id, ap.application_status, us.user_email FROM events ev INNER JOIN applications ap using(event_id) INNER JOIN users us ON us.user_id = ap.sponsor_id WHERE ev.user_id = $1;",
       [userId]
     );
     res.json(events.rows);
@@ -208,7 +208,7 @@ app.post("/applications", async (req, res) => {
     application_status
   );
   const application_id = uuidv4();
-
+                                                      
   try {
     const newApplication = await pool.query(
       "INSERT INTO applications(application_id, sponsor_id, event_id, sponsor_name, sponsor_phone, application_status) VALUES($1, $2, $3, $4, $5, $6);",
