@@ -177,12 +177,27 @@ app.get("/applications", async (req, res) => {
   }
 });
 
+// update application status
+app.put("/applications/:applicationId", async (req, res) => {
+  const { applicationId } = req.params;
+  const { applicationStatus } = req.body;
+  try {
+    const applications = await pool.query(
+      "UPDATE applications SET application_status = $2 WHERE application_id = $1",
+      [applicationId, applicationStatus]
+    );
+    res.json(applications.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // get users all applications
 app.get("/applications/:userId", async (req, res) => {
   const { userId } = req.params;
   try {
     const applications = await pool.query(
-      "SELECT event_name, event_date, application_status FROM events INNER JOIN applications using(event_id) WHERE sponsor_id = $1",
+      "SELECT event_name, event_date, application_id, application_status FROM events INNER JOIN applications using(event_id) WHERE sponsor_id = $1",
       [userId]
     );
     res.json(applications.rows);
@@ -208,7 +223,7 @@ app.post("/applications", async (req, res) => {
     application_status
   );
   const application_id = uuidv4();
-                                                      
+
   try {
     const newApplication = await pool.query(
       "INSERT INTO applications(application_id, sponsor_id, event_id, sponsor_name, sponsor_phone, application_status) VALUES($1, $2, $3, $4, $5, $6);",
