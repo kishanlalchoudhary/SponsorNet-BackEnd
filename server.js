@@ -48,6 +48,11 @@ app.post("/signup", async (req, res) => {
   const hashedPassword = bcrypt.hashSync(user_password, salt);
   const user_id = uuidv4();
   try {
+    const users = await pool.query(
+      "SELECT * FROM users WHERE user_email = $1",
+      [user_email]
+    );
+    if (users.rows.length) return res.json({ detail: "Already registered" });
     const signup = await pool.query(
       "INSERT INTO users(user_id, user_email, user_hashed_password) VALUES($1, $2, $3)",
       [user_id, user_email, hashedPassword]
