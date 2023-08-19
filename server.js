@@ -27,6 +27,20 @@ app.get("/users", async (req, res) => {
   }
 });
 
+// get users details
+app.get("/users/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const events = await pool.query(
+      "SELECT user_email FROM users WHERE user_id = $1",
+      [userId]
+    );
+    res.json(events.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // signup a user
 app.post("/signup", async (req, res) => {
   const { user_email, user_password } = req.body;
@@ -84,11 +98,11 @@ app.get("/events", async (req, res) => {
 });
 
 // get user created events
-app.get("/events", async (req, res) => {
-  const { userId } = req.query;
+app.get("/events/:userId", async (req, res) => {
+  const { userId } = req.params;
   try {
     const events = await pool.query(
-      "SELECT * FROM events WHERE user_id = $1;",
+      "SELECT ev.event_name, ap.sponsor_name, ap.sponsor_phone, ap.application_status, us.user_email FROM events ev INNER JOIN applications ap using(event_id) INNER JOIN users us ON us.user_id = ap.sponsor_id WHERE ev.user_id = $1;",
       [userId]
     );
     res.json(events.rows);
