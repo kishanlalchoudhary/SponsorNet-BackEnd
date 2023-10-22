@@ -1,4 +1,4 @@
-# SponsorNet-BackEnd
+# SponsorNet BackEnd Api
 This repository contains the Backend code of 'SponsorNet' a centralized Platform which reduces the communication barrier between Organizer and Sponsors. It eradicates the orthodox method of finding sponsors by extensively calling sponsors asking for sponsorships.
 
 ## Tech Stack
@@ -15,3 +15,6 @@ The backend of this project is built using a robust and efficient tech stack tha
 <p align="center">
   <img src="https://github.com/kishanlalchoudhary/SponsorNet-BackEnd/assets/107745828/202903d4-b14f-407c-b735-36899988dadf"></img>
 </p>
+
+## Demo - https://sponsornet.netlify.app/
+## Frontend GitHub - https://github.com/AtharvaLitake/SponsorNet-FrontEnd
