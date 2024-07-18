@@ -1,4 +1,4 @@
-# SponsorNet BackEnd Api
+# SponsorNet BackEnd API
 This repository contains the Backend code of 'SponsorNet' a centralized Platform which reduces the communication barrier between Organizer and Sponsors. It eradicates the orthodox method of finding sponsors by extensively calling sponsors asking for sponsorships.
 
 ## Tech Stack
